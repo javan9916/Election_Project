@@ -1,10 +1,12 @@
+from PP import *
 ballotList = []
 
 def addBallot():
     ballotName = input("Ballot Name: ")
     print("What type of Ballot it will be?")
     ballotType = input("Type Presidental or Legislative: ")
-    ballotSpecs = {"name": ballotName, "type": ballotType}
+    ballotPList = partiesList
+    ballotSpecs = {"name": ballotName, "type": ballotType, "parties": ballotPList}
     ballotList.append(ballotSpecs)
     return True
 
