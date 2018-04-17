@@ -11,8 +11,19 @@ def addBallot():
     return True
 
 def editBallot():
-    ballot = input("Ballot name")
+    ballot = input("Ballot name: ")
     f = False
+    i = 0
+    while i < len(ballotList):
+        if ballotList[i]["name"] == ballot:
+            ballotList[i]["name"] == input("New name: ")
+            print("Edited Successfully")
+            f = True
+            break
+        i += 1
+    if f == False:
+        print("That ballot does not exist")
+    return True
 
 def deleteBallot():
     ballot = input("Ballot to be deleted: ")
