@@ -1,10 +1,10 @@
-from login_signup import *
+from LS import *
 from TD import *
 from PP import *
-from AP import *
+from BA import *
+from RC import *
 
 def menu():
-    print("------------------------------------------")
     print("Main Menu\n"
           "1) Log In\n"
           "2) Sign Up\n"
@@ -20,12 +20,13 @@ def menu():
         return
     else:
         print("Wrong value")
+        print("------------------------------------------")
         menu()
 
 def signUp():
     admin = False
     name = input("Type your full name: ")
-    age = int(input("Type your age: "))
+    age = input("Type your age: ")
     email = input("Type your email: ")
     password = input("Type your password: ")
     id = int(input("Type your ID: "))
@@ -54,6 +55,7 @@ def logIn():
             i += 1
     if f == False:
         print("Access denied\n")
+        print("------------------------------------------")
         menu()
 
 def Admin(user):
@@ -89,6 +91,7 @@ def menuAdmin():
         menuAdmin()
     else:
         print("Wrong value")
+        print("------------------------------------------")
         menuAdmin()
 
 def TDmenu():
@@ -111,10 +114,10 @@ def TDmenu():
         menuAdmin()
     else:
         print("Wrong value")
+        print("------------------------------------------")
         TDmenu()
 
 def province():
-    print("------------------------------------------")
     print("1) Add\n"
           "2) Edit\n"
           "3) Delete\n")
@@ -133,10 +136,10 @@ def province():
             TDmenu()
     else:
         print("Wrong value")
+        print("------------------------------------------")
         TDmenu()
 
 def canton():
-    print("------------------------------------------")
     print("1) Add\n"
           "2) Edit\n"
           "3) Delete\n")
@@ -155,10 +158,10 @@ def canton():
             TDmenu()
     else:
         print("Wrong value")
+        print("------------------------------------------")
         TDmenu()
 
 def district():
-    print("------------------------------------------")
     print("1) Add\n"
           "2) Edit\n"
           "3) Delete\n")
@@ -177,6 +180,7 @@ def district():
             TDmenu()
     else:
         print("Wrong value")
+        print("------------------------------------------")
         TDmenu()
 
 def PPmenu():
@@ -201,6 +205,7 @@ def PPmenu():
         menuAdmin()
     else:
         print("Wrong value")
+        print("------------------------------------------")
         PPmenu()
 
 def APmenu():
@@ -224,7 +229,32 @@ def APmenu():
         menuAdmin()
     else:
         print("Wrong value")
+        print("------------------------------------------")
         APmenu()
+
+def RCmenu():
+    print("1) Add Result\n"
+          "2) Edit\n"
+          "3) Delete\n"
+          "4) Back")
+    option = input("Choose an option: ")
+    print("-----------------------------------------")
+
+    if option == "1":
+        if addResult():
+            RCmenu()
+    elif option == "2":
+            RCmenu()
+    elif option == "3":
+        if deleteBallot():
+            RCmenu()
+    elif option == "4":
+        menuAdmin()
+    else:
+        print("Wrong value")
+        print("------------------------------------------")
+        APmenu()
+
 
 menu()
 

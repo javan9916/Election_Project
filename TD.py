@@ -1,3 +1,4 @@
+
 provinces = []
 
 def addProvince():
@@ -6,6 +7,7 @@ def addProvince():
     province = {"name": pname, "diputies": pdiputies, "cantons": []}
     provinces.append(province)
 
+    print(provinces)
     return True
 
 
@@ -34,19 +36,19 @@ def addDistrict():
     canton = input("This district belongs to the canton of: ")
     f1 = False
     f2 = False
-    j = 0
+    i = 0
     for p in provinces:
         if p["name"] == prov:
             cantons = p["cantons"]
             f2 = True
-            while j < len(cantons):
-                if cantons[j]["name"] == canton:
-                    district = {"name": dname, "province": prov,"canton": canton}
-                    cantons[j]["districts"].append(district)
+            while i < len(cantons):
+                if cantons[i]["name"] == canton:
+                    district = {"name": dname, "province": prov, "canton": canton, "pBallot": [], "lBallot": []}
+                    cantons[i]["districts"].append(district)
                     f1 = True
                     break
                 else:
-                    j += 1
+                    i += 1
 
     if f1 and f2 == False:
         print("That province or canton does not exist, check'em out\n")
