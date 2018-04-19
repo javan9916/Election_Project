@@ -11,20 +11,27 @@ def addBallot():
     votes = 0
     parties = []
     for party in partiesList:
-        parties.append(party["name"])
+        partySpecs = {"name": party["name"], "votes": votes}
+        parties.append(partySpecs)
 
+    f1 = False
+    f2 = False
+    f3 = False
     if type == "l":
         for p in provinces:
             if prov == p["name"]:
                 cantons = p["cantons"]
+                f3 = True
                 for c in cantons:
                     if can == c["name"]:
                         districts = c["districts"]
+                        f2 = True
                         for d in districts:
                             if dis == d["name"]:
                                 ballotListl = d["lBallot"]
+                                f1 = True
                                 if len(ballotListl) == 0:
-                                    ballot = {"province": prov, "canton": can, "district": dis, "type": type, "parties": parties, "votes": votes}
+                                    ballot = {"province": prov, "canton": can, "district": dis, "type": type, "parties": parties}
                                     ballotListl.append(ballot)
                                 else:
                                     i = 0
@@ -38,12 +45,15 @@ def addBallot():
         for p in provinces:
             if prov == p["name"]:
                 cantons = p["cantons"]
+                f3 = True
                 for c in cantons:
                     if can == c["name"]:
                         districts = c["districts"]
+                        f2 = True
                         for d in districts:
                             if dis == d["name"]:
                                 ballotListp = d["pBallot"]
+                                f1 = True
                                 if len(ballotListp) == 0:
                                     ballot = {"province": prov, "canton": can, "district": dis, "type": type, "parties": parties, "votes": votes}
                                     ballotListp.append(ballot)
@@ -55,6 +65,13 @@ def addBallot():
                                                       "parties": partiesList, "votes": votes}
                                             ballotListp.append(ballot)
                                         i += 1
+
+    if f1 and f2 and f3 == False:
+        print("That province, canton or district does not exist, check'em out\n")
+    elif f1 and f2 == False:
+        print("That canton or district does not exist, check'em out\n")
+    elif f1 == False:
+        print("That district does not exist, check it out\n")
 
     print(ballotListl)
     return True
