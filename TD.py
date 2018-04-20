@@ -1,5 +1,4 @@
-
-provinces = []
+provinces = [{'name': 'ala', 'diputies': '23', 'cantons': [{'name': 'sc', 'province': 'ala', 'districts': [{'name': 'poco', 'province': 'ala', 'canton': 'sc', 'pBallot': [], 'lBallot': [{'province': 'ala', 'canton': 'sc', 'district': 'poco', 'type': 'l', 'parties': [{'name': 'PAC', 'votes': 0}, {'name': 'PRN', 'votes': 0}]}]}]}]}]
 
 def addProvince():
     pname = input("Province name: ")

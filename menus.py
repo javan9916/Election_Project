@@ -83,7 +83,7 @@ def menuAdmin():
     elif option == "3":
         APmenu()
     elif option == "4":
-        print("RC")
+        RCmenu()
     elif option == "5":
         menu()
     elif option == "6":
@@ -234,7 +234,7 @@ def APmenu():
 
 def RCmenu():
     print("1) Add Result\n"
-          "2) Edit\n"
+          "2) Edit Result\n"
           "3) Delete\n"
           "4) Back")
     option = input("Choose an option: ")
@@ -244,16 +244,16 @@ def RCmenu():
         if addResult():
             RCmenu()
     elif option == "2":
+        if editResult():
             RCmenu()
     elif option == "3":
-        if deleteBallot():
             RCmenu()
     elif option == "4":
         menuAdmin()
     else:
         print("Wrong value")
         print("------------------------------------------")
-        APmenu()
+        RCmenu()
 
 
 menu()

@@ -1,12 +1,10 @@
 from PP import *
 from TD import *
-ballotListl = []
-ballotListp = []
 
 def addBallot():
     prov = input("Province name: ")
     can = input("Canton name: ")
-    dis = input("Disctrict where you want this ballot: ")
+    dis = input("District where you want this ballot: ")
     type = input("Legislative or Presidential?(p/l): ")
     votes = 0
     parties = []
@@ -30,17 +28,26 @@ def addBallot():
                             if dis == d["name"]:
                                 ballotListl = d["lBallot"]
                                 f1 = True
-                                if len(ballotListl) == 0:
-                                    ballot = {"province": prov, "canton": can, "district": dis, "type": type, "parties": parties}
-                                    ballotListl.append(ballot)
-                                else:
-                                    i = 0
-                                    while i < len(ballotListl):
-                                        if prov != ballotListl[i]["district"]:
-                                            ballot = {"province": prov, "canton": can, "district": dis, "type": type,
-                                                      "parties": partiesList, "votes": votes}
-                                            ballotListl.append(ballot)
-                                        i += 1
+                                ballotParties = []
+                                i = 0
+                                while i < len(parties):
+                                    party = input("Name of the party you want to add: ")
+                                    if party == parties[i]["name"]:
+                                        ballotParties.append(parties[i])
+                                        yn = input("Want to add another party?(Y/n): ")
+                                        if yn == "Y" or yn == "y":
+                                            i = 0
+                                        else:
+                                            if len(ballotListl) == 0:
+                                                ballot = {"province": prov, "canton": can, "district": dis,
+                                                          "type": type, "parties": ballotParties}
+                                                ballotListl.append(ballot)
+                                                break
+                                            else:
+                                                print("That district already has a legislative ballot... Check it out")
+                                    i += 1
+
+
     elif type == "p":
         for p in provinces:
             if prov == p["name"]:
@@ -54,17 +61,24 @@ def addBallot():
                             if dis == d["name"]:
                                 ballotListp = d["pBallot"]
                                 f1 = True
-                                if len(ballotListp) == 0:
-                                    ballot = {"province": prov, "canton": can, "district": dis, "type": type, "parties": parties, "votes": votes}
-                                    ballotListp.append(ballot)
-                                else:
-                                    i = 0
-                                    while i < len(ballotListp):
-                                        if prov != ballotListp[i]["district"]:
-                                            ballot = {"province": prov, "canton": can, "district": dis, "type": type,
-                                                      "parties": partiesList, "votes": votes}
-                                            ballotListp.append(ballot)
-                                        i += 1
+                                ballotParties = []
+                                i = 0
+                                while i < len(parties):
+                                    party = input("Name of the party you want to add: ")
+                                    if party == parties[i]["name"]:
+                                        ballotParties.append(parties[i])
+                                        yn = input("Want to add another party?(Y/n): ")
+                                        if yn == "Y" or yn == "y":
+                                            i = 0
+                                        else:
+                                            if len(ballotListp) == 0:
+                                                ballot = {"province": prov, "canton": can, "district": dis,
+                                                          "type": type, "parties": ballotParties}
+                                                ballotListp.append(ballot)
+                                                break
+                                            else:
+                                                print("That district already has a presidential ballot... Check it out")
+                                    i += 1
 
     if f1 and f2 and f3 == False:
         print("That province, canton or district does not exist, check'em out\n")
@@ -73,77 +87,166 @@ def addBallot():
     elif f1 == False:
         print("That district does not exist, check it out\n")
 
-    print(ballotListl)
+    print(provinces)
     return True
 
 def editBallot():
     prov = input("Province name: ")
+    can = input("Canton name: ")
+    dis = input("District name: ")
     type = input("Legislative or Presidential?(p/l): ")
-    f = False
+    a_d = input("Do you want to add or delete a party?(a/d): ")
+    votes = 0
 
+    listParties = []
+    for party in partiesList:
+        partySpecs = {"name": party["name"], "votes": votes}
+        listParties.append(partySpecs)
+
+    f1 = False
+    f2 = False
+    f3 = False
     if type == "l":
-        i = 0
-        while i < len(ballotListl):
-            if ballotListl[i]["province"] == prov:
-                newProvince = input("New province: ")
-                for b in ballotListl:
-                    if newProvince == b["province"]:
-                        print("That province already has a ballot... change it")
-                        editBallot()
-                    else:
-                        ballotListl[i]["province"] == newProvince
-                        print("Edited Successfully")
-                        f = True
-                        break
-            i += 1
-
+        if a_d == "a":
+            for p in provinces:
+                if prov == p["name"]:
+                    cantons = p["cantons"]
+                    f3 = True
+                    for c in cantons:
+                        if can == c["name"]:
+                            districts = c["districts"]
+                            f2 = True
+                            for d in districts:
+                                if dis == d["name"]:
+                                    lballot = d["lBallot"]
+                                    f1 = True
+                                    parties = lballot[0]["parties"]
+                                    party = input("New party: ")
+                                    i = 0
+                                    while i < len(listParties):
+                                        if party == listParties[i]["name"]:
+                                            j = 0
+                                            while j < len(parties):
+                                                if party != parties[j]["name"]:
+                                                    parties.append(listParties[i])
+                                                j += 1
+                                        i += 1
+        elif a_d == "d":
+            for p in provinces:
+                if prov == p["name"]:
+                    cantons = p["cantons"]
+                    f3 = True
+                    for c in cantons:
+                        if can == c["name"]:
+                            districts = c["districts"]
+                            f2 = True
+                            for d in districts:
+                                if dis == d["name"]:
+                                    lballot = d["lBallot"]
+                                    f1 = True
+                                    parties = lballot[0]["parties"]
+                                    party = input("Party you want to delete: ")
+                                    i = 0
+                                    while i < len(parties):
+                                        if party == parties[i]["name"]:
+                                            parties.remove(parties[i])
+                                        i += 1
     elif type == "p":
-        if type == "l":
-            i = 0
-            while i < len(ballotListp):
-                if ballotListp[i]["province"] == prov:
-                    newProvince = input("New province: ")
-                    for b in ballotListp:
-                        if newProvince == b["province"]:
-                            print("That province already has a ballot... change it")
-                            editBallot()
-                        else:
-                            ballotListp[i]["province"] == newProvince
-                            print("Edited Successfully")
-                            f = True
-                            break
-                i += 1
+        if a_d == "a":
+            for p in provinces:
+                if prov == p["name"]:
+                    cantons = p["cantons"]
+                    f3 = True
+                    for c in cantons:
+                        if can == c["name"]:
+                            districts = c["districts"]
+                            f2 = True
+                            for d in districts:
+                                if dis == d["name"]:
+                                    pballot = d["pBallot"]
+                                    f1 = True
+                                    parties = pballot[0]["parties"]
+                                    party = input("New party: ")
+                                    i = 0
+                                    while i < len(listParties):
+                                        if party == listParties[i]["name"]:
+                                            j = 0
+                                            while j < len(parties):
+                                                if party != parties[j]["name"]:
+                                                    parties.append(listParties[i])
+                                                j += 1
+                                        i += 1
+        elif a_d == "d":
+            for p in provinces:
+                if prov == p["name"]:
+                    cantons = p["cantons"]
+                    f3 = True
+                    for c in cantons:
+                        if can == c["name"]:
+                            districts = c["districts"]
+                            f2 = True
+                            for d in districts:
+                                if dis == d["name"]:
+                                    pballot = d["pBallot"]
+                                    f1 = True
+                                    parties = pballot[0]["parties"]
+                                    party = input("Party you want to delete: ")
+                                    i = 0
+                                    while i < len(parties):
+                                        if party == parties[i]["name"]:
+                                            parties.remove(parties[i])
+                                        i += 1
 
 
-    if f == False:
-        print("That ballot does not exist")
+    if f1 and f2 and f3 == False:
+        print("That province, canton or district does not exist, check'em out\n")
+    elif f1 and f2 == False:
+        print("That canton or district does not exist, check'em out\n")
+    elif f1 == False:
+        print("That district does not exist, check it out\n")
     return True
 
 def deleteBallot():
-    prov = input("Province's ballot to be deleted: ")
+    prov = input("Province name: ")
+    can = input("Canton name: ")
+    dis = input("Disctrict where you want this ballot: ")
     type = input("Legislative or Presidential?(p/l): ")
-    f = False
+    f1 = False
+    f2 = False
+    f3 = False
 
     if type == "l":
-        i = 0
-        while i < len(ballotListl):
-            if ballotListl[i]["province"] == prov:
-                ballotListl.remove(ballotListl[i])
-                print("Deleted successfully")
-                f = True
-                break
-            i += 1
-
+        for p in provinces:
+            if prov == p["name"]:
+                cantons = p["cantons"]
+                f3 = True
+                for c in cantons:
+                    if can == c["name"]:
+                        districts = c["districts"]
+                        f2 = True
+                        for d in districts:
+                            if dis == d["name"]:
+                                d["lBallot"] = []
+                                f1 = True
     elif type == "p":
-        i = 0
-        while i < len(ballotListp):
-            if ballotListp[i]["province"] == prov:
-                ballotListp.remove(ballotListp[i])
-                print("Deleted successfully")
-                f = True
-                break
-            i += 1
+        for p in provinces:
+            if prov == p["name"]:
+                cantons = p["cantons"]
+                f3 = True
+                for c in cantons:
+                    if can == c["name"]:
+                        districts = c["districts"]
+                        f2 = True
+                        for d in districts:
+                            if dis == d["name"]:
+                                d["pBallot"] = []
+                                f1 = True
 
-        if f == False:
-            print("That ballot does not exist")
-        return True
+
+    if f1 and f2 and f3 == False:
+        print("That province, canton or district does not exist, check'em out\n")
+    elif f1 and f2 == False:
+        print("That canton or district does not exist, check'em out\n")
+    elif f1 == False:
+        print("That district does not exist, check it out\n")
+    return True
