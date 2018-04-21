@@ -1,5 +1,6 @@
 partiesList = []
 
+#This method allows the admin to add a party into the 'partiesList' declared up there
 def addParty():
     pName = input("Name of the Political Party: ")
     pYear = input("Year of creation: ")
@@ -10,22 +11,7 @@ def addParty():
     print(partiesList)
     return True
 
-def deleteParty():
-    party = input("Political Party to be deleted: ")
-    f = False
-    i = 0
-    while i < len(partiesList):
-        if partiesList[i]["name"] == party:
-            partiesList.remove(partiesList[i])
-            print("Deleted successfully")
-            f = True
-            break
-        i += 1
-    if f == False:
-        print("That Political Party does not exist...")
-    print(partiesList)
-    return True
-
+#This method allows the admin to edit an existent party
 def editParty():
     p = input("Political Party Name: ")
     f = False
@@ -40,6 +26,23 @@ def editParty():
             break
         else:
             i += 1
+    if f == False:
+        print("That Political Party does not exist...")
+    print(partiesList)
+    return True
+
+#This method allows the admin to delete a party from the 'partiesList'
+def deleteParty():
+    party = input("Political Party to be deleted: ")
+    f = False
+    i = 0
+    while i < len(partiesList):
+        if partiesList[i]["name"] == party:
+            partiesList.remove(partiesList[i])
+            print("Deleted successfully")
+            f = True
+            break
+        i += 1
     if f == False:
         print("That Political Party does not exist...")
     print(partiesList)

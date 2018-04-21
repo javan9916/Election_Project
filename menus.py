@@ -4,6 +4,7 @@ from PP import *
 from BA import *
 from RC import *
 
+#This method is the main menu where you can sign up and login, or exit if you want
 def menu():
     print("Main Menu\n"
           "1) Log In\n"
@@ -23,6 +24,7 @@ def menu():
         print("------------------------------------------")
         menu()
 
+#This method allows the user to sign up in the application
 def signUp():
     admin = False
     name = input("Type your full name: ")
@@ -36,9 +38,9 @@ def signUp():
         admin = True
 
     addPerson(name,age,email,password,id,admin)
-
     menu()
 
+#This method allows the user to log in in the application
 def logIn():
     print("Log In")
     id = int(input("Write your ID: "))
@@ -58,18 +60,20 @@ def logIn():
         print("------------------------------------------")
         menu()
 
+#This method separates the admin menu from the guests menu
 def Admin(user):
     if user["admin"] == True:
         menuAdmin()
     else:
         print("idk")
 
+#This is the admin menu where you can choose what to do
 def menuAdmin():
     print("------------------------------------------")
     print("Admin Menu\n"
           "1) Territorial Distribution\n"
           "2) Political Parties\n"
-          "3) Ballots\n"
+          "3) Ballots Administration\n"
           "4) Results and Consultations\n"
           "5) Log Out\n")
 
@@ -81,7 +85,7 @@ def menuAdmin():
     elif option == "2":
         PPmenu()
     elif option == "3":
-        APmenu()
+        BAmenu()
     elif option == "4":
         RCmenu()
     elif option == "5":
@@ -94,6 +98,7 @@ def menuAdmin():
         print("------------------------------------------")
         menuAdmin()
 
+#This is the territorial distribution menu, where you can access to the functions
 def TDmenu():
     print("Territorial Distribution Menu\n"
           "1) Province\n"
@@ -117,6 +122,7 @@ def TDmenu():
         print("------------------------------------------")
         TDmenu()
 
+#This is the province menu, where you can access to the functions
 def province():
     print("1) Add\n"
           "2) Edit\n"
@@ -139,6 +145,7 @@ def province():
         print("------------------------------------------")
         TDmenu()
 
+#This is the canton menu, where you can access to the functions
 def canton():
     print("1) Add\n"
           "2) Edit\n"
@@ -161,6 +168,7 @@ def canton():
         print("------------------------------------------")
         TDmenu()
 
+#This is the district menu, where you can access to the functions
 def district():
     print("1) Add\n"
           "2) Edit\n"
@@ -183,8 +191,10 @@ def district():
         print("------------------------------------------")
         TDmenu()
 
+#This is the political parties menu, where you can access to the functions
 def PPmenu():
-    print("1) Add\n"
+    print("Political Parties Menu\n"
+          "1) Add\n"
           "2) Edit\n"
           "3) Delete\n"
           "4) Back")
@@ -208,8 +218,10 @@ def PPmenu():
         print("------------------------------------------")
         PPmenu()
 
-def APmenu():
-    print("1) Add\n"
+#This is the ballot administration menu, where you can access to the functions
+def BAmenu():
+    print("Ballot Administration Menu\n"
+          "1) Add\n"
           "2) Edit\n"
           "3) Delete\n"
           "4) Back")
@@ -218,22 +230,24 @@ def APmenu():
 
     if option == "1":
         if addBallot():
-            APmenu()
+            BAmenu()
     elif option == "2":
         if editBallot():
-            APmenu()
+            BAmenu()
     elif option == "3":
         if deleteBallot():
-            APmenu()
+            BAmenu()
     elif option == "4":
         menuAdmin()
     else:
         print("Wrong value")
         print("------------------------------------------")
-        APmenu()
+        BAmenu()
 
+#This is the results and consultations menu, where you can access to the functions
 def RCmenu():
-    print("1) Add Result\n"
+    print("Results and Consultations Menu\n"
+          "1) Add Result\n"
           "2) Edit Result\n"
           "3) Delete\n"
           "4) Back")
@@ -254,7 +268,6 @@ def RCmenu():
         print("Wrong value")
         print("------------------------------------------")
         RCmenu()
-
 
 menu()
 

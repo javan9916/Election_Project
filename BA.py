@@ -1,6 +1,7 @@
 from PP import *
 from TD import *
 
+#This method allows the admin to add a new ballot into a district
 def addBallot():
     prov = input("Province name: ")
     can = input("Canton name: ")
@@ -90,6 +91,7 @@ def addBallot():
     print(provinces)
     return True
 
+#This method allows the admin to edit a ballot(add or delete a party in an existent ballot)
 def editBallot():
     prov = input("Province name: ")
     can = input("Canton name: ")
@@ -206,6 +208,7 @@ def editBallot():
         print("That district does not exist, check it out\n")
     return True
 
+#This method allows the admin to delete a ballot from a district
 def deleteBallot():
     prov = input("Province name: ")
     can = input("Canton name: ")

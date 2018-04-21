@@ -1,5 +1,6 @@
 provinces = [{'name': 'ala', 'diputies': '23', 'cantons': [{'name': 'sc', 'province': 'ala', 'districts': [{'name': 'poco', 'province': 'ala', 'canton': 'sc', 'pBallot': [], 'lBallot': [{'province': 'ala', 'canton': 'sc', 'district': 'poco', 'type': 'l', 'parties': [{'name': 'PAC', 'votes': 0}, {'name': 'PRN', 'votes': 0}]}]}]}]}]
 
+#This method allows the admin to add a province into 'provinces' list declared up there
 def addProvince():
     pname = input("Province name: ")
     pdiputies = input("Number of diputies: ")
@@ -9,7 +10,7 @@ def addProvince():
     print(provinces)
     return True
 
-
+#This method allows the admin to add a canton into the 'cantons' list that is inside the 'provinces' list
 def addCanton():
     cname = input("Canton name: ")
     prov = input("This canton belongs to the province of: ")
@@ -29,6 +30,7 @@ def addCanton():
 
     return True
 
+#This method allows the admin to add a district into the 'districts' list that is inside the 'cantons' list
 def addDistrict():
     dname = input("District name: ")
     prov = input("This district belong to the province of: ")
@@ -56,6 +58,7 @@ def addDistrict():
 
     return True
 
+#This method allows the admin to edit an existent province
 def editProvince():
     province = input("Province: ")
     f = False
@@ -72,6 +75,7 @@ def editProvince():
 
     return True
 
+#This method allows the admin to edit an existent canton
 def editCanton():
     canton = input("Canton: ")
     prov = input("This canton belongs to the province of: ")
@@ -97,6 +101,7 @@ def editCanton():
 
     return True
 
+#This method allows the admin to edit an existent district
 def editDistrict():
     district = input("District: ")
     prov =  input("This district belongs to the province of: ")
@@ -130,6 +135,7 @@ def editDistrict():
 
     return True
 
+#This method allows the admin to delete a province from the 'provinces' list
 def deleteProvince():
     province = input("Name of province to be deleted: ")
     f = False
@@ -145,6 +151,7 @@ def deleteProvince():
 
     return True
 
+#This method allows the admin to delete a province from the 'cantons' list
 def deleteCanton():
     canton = input("Name of canton to be deleted: ")
     prov = input("This canton belongs to the province of: ")
@@ -170,6 +177,7 @@ def deleteCanton():
 
     return True
 
+#This method allows the admin to delete a province from the 'districts' list
 def deleteDistrict():
     district = input("Name of district to be deleted: ")
     prov = input("This district belongs to the province of: ")

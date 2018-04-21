@@ -1,5 +1,6 @@
 from TD import *
 
+#This method allows the admin to add a result(votes) into the party of a ballot
 def addResult():
     prov = input("Province name: ")
     can = input("Canton name: ")
@@ -66,6 +67,7 @@ def addResult():
 
     return True
 
+#This method allows the admin to edit a result(votes) from a party in a ballot
 def editResult():
     prov = input("Province name: ")
     can = input("Canton name: ")
