@@ -249,8 +249,12 @@ def RCmenu():
     print("Results and Consultations Menu\n"
           "1) Add Result\n"
           "2) Edit Result\n"
-          "3) Delete\n"
-          "4) Back")
+          "3) National Results\n"
+          "4) Province Results\n"
+          "5) Canton Results\n"
+          "6) Districts Results\n"
+          "7) Diputies per province\n"
+          "8) Back")
     option = input("Choose an option: ")
     print("-----------------------------------------")
 
@@ -261,8 +265,21 @@ def RCmenu():
         if editResult():
             RCmenu()
     elif option == "3":
+        if nationalResults():
             RCmenu()
     elif option == "4":
+        if provinceResults():
+            RCmenu()
+    elif option == "5":
+        if cantonResults():
+            RCmenu()
+    elif option == "6":
+        if districtResults():
+            RCmenu()
+    elif option == "7":
+        if calculateDiputies():
+            RCmenu()
+    elif option == "8":
         menuAdmin()
     else:
         print("Wrong value")

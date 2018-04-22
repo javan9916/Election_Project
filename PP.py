@@ -1,4 +1,4 @@
-partiesList = []
+partiesList = [{'name': 'PAC', 'year': '123', 'colors': '123', 'IM': '123'}, {'name': 'PRN', 'year': 'asd', 'colors': 'asd', 'IM': 'asd'}]
 
 #This method allows the admin to add a party into the 'partiesList' declared up there
 def addParty():
@@ -6,7 +6,8 @@ def addParty():
     pYear = input("Year of creation: ")
     pColors = input("Colors of the Political Party: ")
     pIdea = input("Ideological Movement: ")
-    politicalParty = {"name": pName, "year": pYear, "colors": pColors, "IM": pIdea}
+    votes = 0
+    politicalParty = {"name": pName, "year": pYear, "colors": pColors, "IM": pIdea, "totalVotes": votes}
     partiesList.append(politicalParty)
     print(partiesList)
     return True

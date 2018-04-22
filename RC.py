@@ -1,4 +1,5 @@
 from TD import *
+from PP import *
 
 #This method allows the admin to add a result(votes) into the party of a ballot
 def addResult():
@@ -31,8 +32,7 @@ def addResult():
                                     if party == parties[i]["name"]:
                                         parties[i]["votes"] = votes
                                         break
-                                    else:
-                                        print("That party does not exist... Check it out")
+                                        print("Successfully added")
                                     i += 1
     elif type == "p":
         for p in provinces:
@@ -54,8 +54,7 @@ def addResult():
                                     if party == parties[i]["name"]:
                                         parties[i]["votes"] = votes
                                         break
-                                    else:
-                                        print("That party does not exist... Check it out")
+                                        print("Successfully added")
                                     i += 1
 
     if f1 and f2 and f3 == False:
@@ -133,3 +132,178 @@ def editResult():
         print("That district does not exist, check it out\n")
 
     return True
+
+#This method counts each party votes
+def countPartyvotes():
+    votes = 0
+    partiesVotes = []
+    for party in partiesList:
+        partySpecs = {"name": party["name"], "totalVotes": votes}
+        partiesVotes.append(partySpecs)
+
+    for p in provinces:
+        cantons = p["cantons"]
+        for c in cantons:
+            districts = c["districts"]
+            for d in districts:
+                ballot = d["pBallot"]
+                parties = ballot[0]["parties"]
+                i = 0
+                while i < len(parties):
+                    if partiesVotes[i]["name"] == parties[i]["name"]:
+                        partiesVotes[i]["totalVotes"] += int(parties[i]["votes"])
+                    i += 1
+
+    i = 0
+    while i < len(partiesList):
+        if partiesList[i]["name"] == partiesVotes[i]["name"]:
+            partiesList[i]["totalVotes"] = partiesVotes[i]["totalVotes"]
+        i += 1
+
+#This method calculates the total votes and the percentage nationally
+def nationalResults():
+    totalvotes = 0
+
+    for p in provinces:
+        cantons = p["cantons"]
+        for c in cantons:
+            districts = c["districts"]
+            for d in districts:
+                ballot = d["pBallot"]
+                parties = ballot[0]["parties"]
+                for prts in parties:
+                    totalvotes += int(prts["votes"])
+                    countPartyvotes()
+
+    print("Total votes: "+str(totalvotes))
+    for party in partiesList:
+        percentage = (party["totalVotes"]*100)/totalvotes
+        print(party["name"]+": "+str(party["totalVotes"])+", Vote Percentage: "+str(percentage)+"%")
+
+    return True
+
+#This method calculates the total votes and the percentage provincially
+def provinceResults():
+    prov = input("Province name: ")
+    totalvotes = 0
+
+    for p in provinces:
+        if p["name"] == prov:
+            cantons = p["cantons"]
+            for c in cantons:
+                districts = c["districts"]
+                for d in districts:
+                    ballot = d["pBallot"]
+                    parties = ballot[0]["parties"]
+                    for prts in parties:
+                        totalvotes += int(prts["votes"])
+                        countPartyvotes()
+
+    print("Total votes: "+str(totalvotes))
+    for party in partiesList:
+        percentage = (party["totalVotes"]*100)/totalvotes
+        print(party["name"]+": "+str(party["totalVotes"])+", Vote Percentage: "+str(percentage)+"%")
+
+    return True
+
+#This method calculates the total votes and the percentage cantonally
+def cantonResults():
+    prov = input("Province name: ")
+    can = input("Canton name: ")
+    totalvotes = 0
+
+    for p in provinces:
+        if p["name"] == prov:
+            cantons = p["cantons"]
+            for c in cantons:
+                if c["name"] == can:
+                    districts = c["districts"]
+                    for d in districts:
+                        ballot = d["pBallot"]
+                        parties = ballot[0]["parties"]
+                        for prts in parties:
+                            totalvotes += int(prts["votes"])
+                            countPartyvotes()
+
+    print("Total votes: "+str(totalvotes))
+    for party in partiesList:
+        percentage = (party["totalVotes"]*100)/totalvotes
+        print(party["name"]+": "+str(party["totalVotes"])+", Vote Percentage: "+str(percentage)+"%")
+
+    return True
+
+#This method calculates the total votes and the percentage districtally
+def districtResults():
+    prov = input("Province name: ")
+    can = input("Canton name: ")
+    dis = input("District name: ")
+    totalvotes = 0
+
+    for p in provinces:
+        if p["name"] == prov:
+            cantons = p["cantons"]
+            for c in cantons:
+                if c["name"] == can:
+                    districts = c["districts"]
+                    for d in districts:
+                        if d["name"] == dis:
+                            ballot = d["pBallot"]
+                            parties = ballot[0]["parties"]
+                            for prts in parties:
+                                totalvotes += int(prts["votes"])
+                                countPartyvotes()
+
+    print("Total votes: "+str(totalvotes))
+    for party in partiesList:
+        percentage = (party["totalVotes"]*100)/totalvotes
+        print(party["name"]+": "+str(party["totalVotes"])+", Vote Percentage: "+str(percentage)+"%")
+
+    return True
+
+#This method calculates the number of diputies that correspond in each province
+"""def calculateDiputies():
+    diputies = 0
+    totalvotes = 0
+    quotient = 0
+    partyDiputies = 0
+    lowPriority = []
+    highPriority = []
+    provinceDiputies = []
+    for p in provinces:
+        provinceSpecs = {"name": p["name"], "diputies": p["diputies"], "quotient": quotient, "partyDiputies": partyDiputies, "totalVotes": totalvotes}
+        provinceDiputies.append(provinceSpecs)
+
+    for p in provinces:
+        cantons = p["cantons"]
+        for c in cantons:
+            districts = c["districts"]
+            for d in districts:
+                ballot = d["lBallot"]
+                parties = ballot[0]["parties"]
+                i = 0
+                while i < len(parties):
+                    if provinceDiputies[i]["name"] == parties[i]["name"]:
+                        provinceDiputies[i]["totalVotes"] += int(parties[i]["votes"])
+                    i += 1
+
+    i = 0
+    while i < len(provinceDiputies):
+        provinceDiputies[i]["quotient"] = provinceDiputies[i]["totalVotes"]/provinceDiputies[i]["diputies"]
+        if partiesList[i]["totalVotes"] < provinceDiputies[i]["quotient"]:
+            lowPriority.append(provinceDiputies[i])
+        else:
+            highPriority.append(provinceDiputies[i])
+        i += 1
+
+    i = 0
+    while i < len(highPriority):
+        while diputies <= highPriority[i]["diputies"]:
+            while highPriority[i]["quotient"] < highPriority[i]["totalVotes"]:
+                highPriority[i]["totalVotes"] -= highPriority[i]["quotient"]
+                provinceDiputies[i]["partyDiputies"] += 1
+                diputies += 1"""
+
+
+
+
+

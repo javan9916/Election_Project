@@ -1,6 +1,7 @@
 from PP import *
 from TD import *
 
+
 #This method allows the admin to add a new ballot into a district
 def addBallot():
     prov = input("Province name: ")
