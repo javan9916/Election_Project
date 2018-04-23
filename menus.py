@@ -1,8 +1,8 @@
-from LS import *
-from TD import *
-from PP import *
-from BA import *
-from RC import *
+from login_and_signup import *
+from territorial_distribution import *
+from political_parties import *
+from ballot_administration import *
+from results_and_consultations import *
 
 #This method is the main menu where you can sign up and login, or exit if you want
 def menu():
@@ -63,12 +63,12 @@ def logIn():
 #This method separates the admin menu from the guests menu
 def Admin(user):
     if user["admin"] == True:
-        menuAdmin()
+        adminMenu()
     else:
-        print("idk")
+        menuGuests()
 
 #This is the admin menu where you can choose what to do
-def menuAdmin():
+def adminMenu():
     print("------------------------------------------")
     print("Admin Menu\n"
           "1) Territorial Distribution\n"
@@ -92,11 +92,45 @@ def menuAdmin():
         menu()
     elif option == "6":
         print(provinces)
-        menuAdmin()
+        adminMenu()
     else:
         print("Wrong value")
         print("------------------------------------------")
-        menuAdmin()
+        adminMenu()
+
+def menuGuests():
+    print("Guests Menu\n"
+          "1) National Results\n"
+          "2) Province Results\n"
+          "3) Canton Results\n"
+          "4) Districts Results\n"
+          "5) Diputies per province\n"
+          "6) Log Out")
+    option = input("Choose an option: ")
+    print("-----------------------------------------")
+
+    if option == "1":
+        if nationalResults():
+            menuGuests()
+    elif option == "2":
+        if provinceResults():
+            menuGuests()
+    elif option == "3":
+        if cantonResults():
+            menuGuests()
+    elif option == "4":
+        if menuGuests():
+            RCmenu()
+    elif option == "5":
+        if calculateDiputies():
+            menuGuests()
+    elif option == "6":
+        menu()
+    else:
+        print("Wrong value")
+        print("------------------------------------------")
+        menuGuests()
+
 
 #This is the territorial distribution menu, where you can access to the functions
 def TDmenu():
@@ -116,7 +150,7 @@ def TDmenu():
     elif option == "3":
         district()
     elif option == "4":
-        menuAdmin()
+        adminMenu()
     else:
         print("Wrong value")
         print("------------------------------------------")
@@ -212,7 +246,7 @@ def PPmenu():
         if deleteParty():
             PPmenu()
     elif option == "4":
-        menuAdmin()
+        adminMenu()
     else:
         print("Wrong value")
         print("------------------------------------------")
@@ -238,7 +272,7 @@ def BAmenu():
         if deleteBallot():
             BAmenu()
     elif option == "4":
-        menuAdmin()
+        adminMenu()
     else:
         print("Wrong value")
         print("------------------------------------------")
@@ -280,7 +314,7 @@ def RCmenu():
         if calculateDiputies():
             RCmenu()
     elif option == "8":
-        menuAdmin()
+        adminMenu()
     else:
         print("Wrong value")
         print("------------------------------------------")
