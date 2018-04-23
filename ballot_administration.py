@@ -1,5 +1,5 @@
-from PP import *
-from TD import *
+from political_parties import *
+from territorial_distribution import *
 
 
 #This method allows the admin to add a new ballot into a district
